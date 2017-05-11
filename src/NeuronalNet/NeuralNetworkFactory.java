@@ -48,7 +48,16 @@ public class NeuralNetworkFactory {
     private static void initializeInputNeurons(NeuralNetwork nn) {
         for (int index = 0; index < nn.getInputNeurons().size(); index++) {
             nn.setInputNeuronValue(index, index + 1);
+        }
 
+    }
+
+    public static void initializeInputNeurons(NeuralNetwork nn, float... input) {
+        int index = 0;
+        if (input.length != nn.getInputNeurons().size())
+            throw new RuntimeException();
+        for (float in : input) {
+            nn.setInputNeuronValue(index++, in);
         }
     }
 }

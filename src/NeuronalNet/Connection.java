@@ -13,6 +13,14 @@ public class Connection {
         this.weight = weight;
     }
 
+    public float getWeight() {
+        return weight;
+    }
+
+    public void setWeight(float weight) {
+        this.weight = weight;
+    }
+
     public float getValue() {
         return this.neuron.getValue() * weight;
     }

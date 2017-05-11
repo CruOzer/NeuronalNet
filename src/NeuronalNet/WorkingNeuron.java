@@ -16,6 +16,10 @@ public class WorkingNeuron extends Neuron {
     private IActivationFunction activationFunction;
     private ITransferFunction transferFunction;
 
+    public List<Connection> getConnections() {
+        return connections;
+    }
+
     public void setActivationFunction(IActivationFunction activationFunction) {
         this.activationFunction = activationFunction;
     }

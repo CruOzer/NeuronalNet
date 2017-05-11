@@ -39,7 +39,7 @@ public class NeuralNetwork {
         }
     }
 
-    public void setInputNeuronValue(int index, int value) {
+    public void setInputNeuronValue(int index, float value) {
         inputNeurons.get(index).setValue(value);
     }
 }
