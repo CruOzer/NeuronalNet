@@ -11,20 +11,13 @@ public class NeuralNetwork {
     private List<InputNeuron> inputNeurons = new ArrayList<>();
     private List<WorkingNeuron> outputNeurons = new ArrayList<>();
 
-
-    public InputNeuron createNewInput() {
-        InputNeuron in = new InputNeuron();
-        inputNeurons.add(in);
-        return in;
+    public List<InputNeuron> getInputNeurons() {
+        return inputNeurons;
     }
 
-
-    public WorkingNeuron createNewOutput() {
-        WorkingNeuron on = new WorkingNeuron();
-        outputNeurons.add(on);
-        return on;
+    public List<WorkingNeuron> getOutputNeurons() {
+        return outputNeurons;
     }
-
 
     public void createFullMesh() {
         for (WorkingNeuron wn : outputNeurons) {
@@ -36,7 +29,7 @@ public class NeuralNetwork {
 
 
     public void createFullMesh(float... weights) {
-        if (weights.length!=inputNeurons.size()*outputNeurons.size())
+        if (weights.length != inputNeurons.size() * outputNeurons.size())
             throw new RuntimeException();
         int index = 0;
         for (WorkingNeuron wn : outputNeurons) {
@@ -44,5 +37,9 @@ public class NeuralNetwork {
                 wn.addConnection(new Connection(in, weights[index++]));
             }
         }
+    }
+
+    public void setInputNeuronValue(int index,int value){
+        inputNeurons.get(index).setValue(value);
     }
 }

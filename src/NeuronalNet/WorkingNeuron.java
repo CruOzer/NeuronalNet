@@ -1,8 +1,7 @@
 package NeuronalNet;
 
-import NeuronalNet.ActivationFunctions.BooleanFunction;
 import NeuronalNet.ActivationFunctions.IActivationFunction;
-import NeuronalNet.ActivationFunctions.IdentityFunction;
+import NeuronalNet.TransferFunctions.ITransferFunction;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,15 +13,20 @@ public class WorkingNeuron extends Neuron {
 
 
     private List<Connection> connections = new ArrayList<>();
-    private IActivationFunction activationFunction= IActivationFunction.ActivationSigmoid   ;
+    private IActivationFunction activationFunction;
+    private ITransferFunction transferFunction;
+
+    public void setActivationFunction(IActivationFunction activationFunction) {
+        this.activationFunction = activationFunction;
+    }
+
+    public void setTransferFunction(ITransferFunction transferFunction) {
+        this.transferFunction = transferFunction;
+    }
 
     @Override
     public float getValue() {
-        float sum = 0;
-        for (Connection c : connections) {
-            sum += c.getValue();
-        }
-        return activationFunction.activation(sum);
+        return activationFunction.activation(transferFunction.transfer(connections));
     }
 
     public void addConnection(Connection c) {

@@ -1,8 +1,13 @@
 package NeuronalNetTest;
 
+import NeuronalNet.ActivationFunctions.IActivationFunction;
 import NeuronalNet.InputNeuron;
 import NeuronalNet.NeuralNetwork;
+import NeuronalNet.TransferFunctions.ITransferFunction;
 import NeuronalNet.WorkingNeuron;
+
+import  NeuronalNet.NeuralNetworkFactory;
+
 
 /**
  * Created by admin on 11.05.2017.
@@ -10,20 +15,7 @@ import NeuronalNet.WorkingNeuron;
 public class SingleLayerTest {
     public static void main(String[] args) {
 
-        NeuralNetwork nn = new NeuralNetwork();
-        InputNeuron i1= nn.createNewInput();
-        InputNeuron i2= nn.createNewInput();
-        InputNeuron i3= nn.createNewInput();
-        InputNeuron i4= nn.createNewInput();
-        WorkingNeuron wn = nn.createNewOutput() ;
-        nn.createFullMesh(3,-1,2,0);
-
-        i1.setValue(1);
-        i2.setValue(2);
-        i3.setValue(3);
-        i4.setValue(4);
-
-        System.out.println(wn.getValue());
-
+        NeuralNetwork nn =NeuralNetworkFactory.getNeuralNetworkFactory().createNeuralNetwork(4, IActivationFunction.ActivationSigmoid  , ITransferFunction.TransferSum ,3,-1,2,0);
+        System.out.println(nn.getOutputNeurons().get(0).getValue());
     }
 }
