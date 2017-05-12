@@ -14,5 +14,11 @@ public interface ITransferFunction {
     public static ITransferFunction TransferMaximum = new MaximumFunction();
     public static ITransferFunction TransferMinimum = new MinimumFunction();
 
+    /**
+     * Bildet aus allen eingehenden Werten eines Neurons mit Hilfer der Übertragungsfunktion einen Wert
+     *
+     * @param conns Alle Connections eines Neurpns
+     * @return Ermittelter Wert der Übertragungsfunktion dieser Connections
+     */
     float transfer(List<Connection> conns);
 }

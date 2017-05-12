@@ -10,6 +10,11 @@ public class NeuralNetworkFactory {
 
     private static NeuralNetworkFactory neuralNetFactory;
 
+    /**
+     * Holt die Fabrik, die Neuronale Netze erstellt
+     *
+     * @return Fabrik
+     */
     public static NeuralNetworkFactory getNeuralNetworkFactory() {
         if (neuralNetFactory == null)
             neuralNetFactory = new NeuralNetworkFactory();
@@ -17,6 +22,15 @@ public class NeuralNetworkFactory {
     }
 
 
+    /**
+     * Kreirt ein Neuronales Netz mit den übergebenen Funktionen, Gewichten und einem FullMesh
+     *
+     * @param inputNeurons       Anzahl der Input Neuronen
+     * @param activationFunction Aktivierungsfunktion der arbeitenden Neuronen
+     * @param transferFunction   Übertragungsfunktion der arbeitenden Neuronen
+     * @param weights            Gewichte der Verbindungen
+     * @return Neuronale Netz
+     */
     public static NeuralNetwork createNeuralNetwork(int inputNeurons, IActivationFunction activationFunction, ITransferFunction transferFunction, float... weights) {
         NeuralNetwork nn = new NeuralNetwork();
 
@@ -29,22 +43,37 @@ public class NeuralNetworkFactory {
         for (WorkingNeuron neuron : nn.getOutputNeurons()) {
             neuron.setActivationFunction(activationFunction);
             neuron.setTransferFunction(transferFunction);
-
         }
         nn.createFullMesh(weights);
         return nn;
     }
 
+
+    /**
+     * Fügt dem Neuronalen Netz ein Input Neuron hinzu
+     *
+     * @param nn Neuronale Netz
+     */
     private static void addNewInput(NeuralNetwork nn) {
         InputNeuron in = new InputNeuron();
         nn.getInputNeurons().add(in);
     }
 
+    /**
+     * Fügt dem Neuronalen Netz ein Output Neuron hinzu
+     *
+     * @param nn Neuronale Netz
+     */
     private static void addNewOutput(NeuralNetwork nn) {
         WorkingNeuron on = new WorkingNeuron();
         nn.getOutputNeurons().add(on);
     }
 
+    /**
+     * Initialisiert die Inputneuronen des übergebenen Neuronalen Netzes mit inkrementierten Standardwerten
+     *
+     * @param nn Neuronale Netz
+     */
     private static void initializeInputNeurons(NeuralNetwork nn) {
         for (int index = 0; index < nn.getInputNeurons().size(); index++) {
             nn.setInputNeuronValue(index, index + 1);
@@ -52,6 +81,12 @@ public class NeuralNetworkFactory {
 
     }
 
+    /**
+     * Initialisiert die Inputneuronen des übergebenen Neuronalen Netzes
+     *
+     * @param nn    Neuronale Netz
+     * @param input Aktivierungsleven der InputNeuronen
+     */
     public static void initializeInputNeurons(NeuralNetwork nn, float... input) {
         int index = 0;
         if (input.length != nn.getInputNeurons().size())
