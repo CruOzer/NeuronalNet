@@ -71,11 +71,14 @@ public class NeuralNetwork {
      * @param lernFaktor      Stellt die Lerngeschwindigkeit dar. Er sollte zwischen 0 und 1 liegen. Wobei 0 und 1 keine
      *                        zielführenden Werte sind. In der Praxis werden kleine Werte genommen, damit das Netz viel lernt
      * @param ziel            Zielwert, den die Outputneuronen erreichen sollen
+     * @param outputIndex     Der Outputindex beschreibt welcher Output neu berechnet werden soll
      * @param abweichungsWert Bestimmt den Toleranzwert, den das Ergebnis vom Ziel abweichen darf
      */
-    public void backPropagation(float lernFaktor, float ziel, float abweichungsWert) {
+    public void backPropagation(float lernFaktor, float ziel, int outputIndex, float abweichungsWert) {
+        if (outputIndex + 1 > outputNeurons.size())
+            throw new RuntimeException();
         float output;
-        int counter = 0;
+
         do {
 
             // j entspricht den Vorlayer
@@ -87,18 +90,17 @@ public class NeuralNetwork {
             // Berechnung Lernfakto * delta
 
             // berechnen von E * di
-            float deltaW = lernFaktor * this.getOutputNeurons().get(0).berechneDelta(ziel);
+            float deltaW = lernFaktor * this.getOutputNeurons().get(outputIndex).berechneDelta(ziel);
 
             int index = 0;
-            for (Connection c : this.getOutputNeurons().get(0).getConnections()) {
+            for (Connection c : this.getOutputNeurons().get(outputIndex).getConnections()) {
                 // multiplizieren des Ergebnisses von E * di mit jeden aj der Inputneutronen
                 // diese werden hinzuaddiert
                 c.setWeight(c.getWeight() + deltaW * this.getInputNeurons().get(index++).getValue());
                 System.out.println("Weigt of index " + index + ": " + c.getWeight());
             }
-            output = this.getOutputNeurons().get(0).getValue();
-            System.out.println("New value of output: " + output);
-//        } while (Math.abs(output - ziel) > 0.02 && counter++ < 10);
+            output = this.getOutputNeurons().get(outputIndex).getValue();
+            System.out.println("New value of output " + (outputIndex + 1) + ": " + output);
         } while (Math.abs(output - ziel) > abweichungsWert);
     }
 }

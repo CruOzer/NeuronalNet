@@ -31,7 +31,7 @@ public class NeuralNetworkFactory {
      * @param weights            Gewichte der Verbindungen
      * @return Neuronale Netz
      */
-    public static NeuralNetwork createNeuralNetwork(int inputNeurons, IActivationFunction activationFunction, ITransferFunction transferFunction, float... weights) {
+    public static NeuralNetwork createNeuralNetwork(int inputNeurons, int outputNeurons, IActivationFunction activationFunction, ITransferFunction transferFunction, float... weights) {
         NeuralNetwork nn = new NeuralNetwork();
 
         for (int i = 0; i < inputNeurons; i++) {
@@ -39,7 +39,10 @@ public class NeuralNetworkFactory {
         }
         initializeInputNeurons(nn);
 
-        addNewOutput(nn);
+        for (int i = 0; i < outputNeurons; i++) {
+            addNewOutput(nn);
+        }
+
         for (WorkingNeuron neuron : nn.getOutputNeurons()) {
             neuron.setActivationFunction(activationFunction);
             neuron.setTransferFunction(transferFunction);
